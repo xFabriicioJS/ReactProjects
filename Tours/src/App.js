@@ -10,9 +10,20 @@ function App() {
 
   const fetchTours = async () => {  //Função assíncrona responsável por pegar os dados da API
     setLoading(true);
-    const resposta = await fetch(url);
-    const tours = await resposta.json() //Método irá transformar a resposta em um JSON comum
-    console.log(tours);
+
+    try{
+      const resposta = await fetch(url);
+      const tours = await resposta.json() //Método irá transformar a resposta em um JSON comum
+      setLoading(false);
+      setTours(tours);
+      
+    }
+    catch (error){
+      setLoading(false);
+      console.log(error)
+    }
+     
+    
   }
 
   useEffect(()=>{fetchTours()},[]) //O useEffect se segurará que a função fetchTours seja executada apenas uma única vez, ao renderizar o componente na página
@@ -24,7 +35,7 @@ function App() {
   else{ //Caso contrário, (loading == false), o componente Tours será renderizado
     return(
       <main>
-        <Tours/> 
+        <Tours tours={tours}/>
       </main>
     )
   }
