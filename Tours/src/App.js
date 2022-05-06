@@ -8,6 +8,11 @@ function App() {
   const [loading, setLoading] = useState(false); //Componente de carregamento
   const [tours, setTours] = useState([])  //State que armazenará os Tours
 
+  function removeTour(id){
+    const newTours = tours.filter( (tour) => tour.id !== id );
+    setTours(newTours)
+  }
+
   const fetchTours = async () => {  //Função assíncrona responsável por pegar os dados da API
     setLoading(true);
 
@@ -31,15 +36,24 @@ function App() {
   if(loading){
     return <Loading/>
   } //Se a state "loading" for igual a true, o componente "Loading" será renderizado
+  if(tours.length === 0){
+    return <main>
+      <div className='title'>
+        <h2>No tours left</h2>
+        <button className="btn" onClick={()=> fetchTours()}>Refresh</button>
+      </div>
+    </main>
+  }
 
   else{ //Caso contrário, (loading == false), o componente Tours será renderizado
-    return(
+     return(
       <main>
-        <Tours tours={tours}/>
+      <Tours tours={tours} removeTour={removeTour}/>
       </main>
-    )
+     )
+   }
   }
   
-}
+
 
 export default App
