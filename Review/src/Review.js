@@ -8,7 +8,11 @@ const Review = () => {
   const { name, job, image, text} = people[index];
 
  
-  
+  function randomIndex(){
+    let aleatorio = Math.floor(Math.random() * people.length);
+
+    setIndex(aleatorio);
+  } 
 
 
   function checkIndex(number){
@@ -54,7 +58,7 @@ const Review = () => {
           <FaChevronRight />
         </button>
       </div>
-      <button className='random-btn'>
+      <button className='random-btn' onClick={randomIndex}>
         surprise me
       </button>
     </article>
