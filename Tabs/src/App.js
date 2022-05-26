@@ -6,7 +6,7 @@ const url = 'https://course-api.com/react-tabs-project'
 function App() {
   const [loading, setLoading] = useState(true);
   const [jobs,setJobs] = useState([]);
-  const [values, setValues] = useState(0);
+  const [value, setValues] = useState(0);
 
 async function fetchJobs(){
   const response = await fetch(url);
@@ -36,6 +36,13 @@ else {
        </div> 
        <div className='jobs-center'>
          {/* btn container */}
+            <div className='btn-container'>
+              {jobs.map((item, index) => {
+                return <button className={`job-btn ${index === value && 'active-btn'}`} onClick={()=> setValues(index)} key={item.id}>
+                  {item.company}
+                </button>
+              })}
+            </div>
          {/* job info */}
          <article className='job-info'>
            <h3>{title}</h3>
