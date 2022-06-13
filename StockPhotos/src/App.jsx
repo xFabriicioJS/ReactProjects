@@ -48,6 +48,19 @@ function App() {
     fetchImages()
   },[])
 
+  useEffect(()=>{
+
+    const event = window.addEventListener('scroll', ()=>{
+
+
+      
+      if(!loading && (2 + window.innerHeight + window.scrollY) >= document.body.scrollHeight){
+        console.log('it worked!')
+      }
+    })
+    return ()=> window.removeEventListener('scroll', event)
+  },[])
+
 const handleSubmit = (e) => {
  e.preventDefault();
  console.log('hellow')
